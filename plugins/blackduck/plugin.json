@@ -1,0 +1,20 @@
+{
+  "name": "blackduck",
+  "displayName": "Black Duck Agent Toolkit",
+  "description": "Black Duck vulnerability triage, CVE/BDSA research, code evidence, remediation, and BOM component review workflows.",
+  "version": "0.1.0",
+  "author": {
+    "name": "vnr"
+  },
+  "keywords": [
+    "blackduck",
+    "security",
+    "vulnerability-triage",
+    "component-review",
+    "agent-skills"
+  ],
+  "category": "security",
+  "agents": "agents/",
+  "skills": "skills/",
+  "commands": "commands/"
+}

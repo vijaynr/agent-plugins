@@ -1,0 +1,110 @@
+{
+  "name": "vnr-agent-development-toolkit",
+  "owner": { "name": "vnr" },
+  "metadata": {
+    "displayName": "Agent Development Toolkit",
+    "description": "Plugins for SDLC, context engineering, web tools, knowledge catalogs, product planning, RPM packaging, Octane, Black Duck, and GitLab.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "sdlc",
+      "displayName": "SDLC Agent Development Toolkit",
+      "description": "Agent skills and slash commands for AI SDLC workflows.",
+      "version": "0.1.0",
+      "source": "plugins/sdlc",
+      "author": { "name": "vnr" },
+      "category": "developer-tools",
+      "tags": ["ai-sdlc", "gitlab", "agent-skills"],
+      "agents": "agents/", "skills": "skills/", "commands": "commands/", "hooks": "hooks/"
+    },
+    {
+      "name": "context-engineering",
+      "displayName": "Context Engineering Agent Toolkit",
+      "description": "Agent skills for local context-engineering prerequisites and project tooling setup.",
+      "version": "0.1.0",
+      "source": "plugins/context-engineering",
+      "author": { "name": "vnr" },
+      "category": "developer-tools",
+      "tags": ["context-engineering", "tooling", "rtk", "ripgrep", "agent-skills"],
+      "skills": "skills/"
+    },
+    {
+      "name": "product-owner",
+      "displayName": "Product Owner Agent Toolkit",
+      "description": "Product-owner agent and skills for PRD drafting, vertical-slice backlog shaping, and requirement stress testing.",
+      "version": "0.1.0",
+      "source": "plugins/product-owner",
+      "author": { "name": "vnr" },
+      "category": "developer-tools",
+      "tags": ["product-owner", "prd", "backlog", "user-stories", "agent-skills"],
+      "agents": "agents/", "skills": "skills/"
+    },
+    {
+      "name": "obs",
+      "displayName": "OBS RPM Packaging Toolkit",
+      "description": "RPM packaging, builds, diagnostics, and approved submissions for workspace-configured internal Open Build Service instances.",
+      "version": "0.1.0",
+      "source": "plugins/obs",
+      "author": { "name": "vnr" },
+      "category": "developer-tools",
+      "tags": ["obs", "osc", "rpm", "packaging", "agent-skills"],
+      "skills": "skills/", "commands": "commands/"
+    },
+    {
+      "name": "octane",
+      "displayName": "Octane Agent Toolkit",
+      "description": "ALM Octane agents, skills, and commands for backlog triage, analysis, planning, implementation, and work item operations.",
+      "version": "0.1.0",
+      "source": "plugins/octane",
+      "author": { "name": "vnr" },
+      "category": "developer-tools",
+      "tags": ["alm-octane", "octane", "backlog", "work-items", "agent-skills"],
+      "agents": "agents/", "skills": "skills/", "commands": "commands/"
+    },
+    {
+      "name": "blackduck",
+      "displayName": "Black Duck Agent Toolkit",
+      "description": "Black Duck vulnerability triage, CVE/BDSA research, code evidence, remediation, and BOM component review workflows.",
+      "version": "0.1.0",
+      "source": "plugins/blackduck",
+      "author": { "name": "vnr" },
+      "category": "security",
+      "tags": ["blackduck", "security", "vulnerability-triage", "component-review", "agent-skills"],
+      "agents": "agents/", "skills": "skills/", "commands": "commands/"
+    },
+    {
+      "name": "gitlab",
+      "displayName": "GitLab Agent Toolkit",
+      "description": "GitLab issue and merge-request workflow agents: triage, analyse, plan, and approved GitLab updates via a hub-and-spoke multi-agent architecture.",
+      "version": "0.1.0",
+      "source": "plugins/gitlab",
+      "author": { "name": "vnr" },
+      "category": "developer-tools",
+      "tags": ["gitlab", "merge-request", "issue-triage", "pipeline", "agent-skills"],
+      "agents": "agents/", "skills": "skills/", "commands": "commands/"
+    },
+    {
+      "name": "okf",
+      "displayName": "Open Knowledge Format Repository Toolkit",
+      "description": "Explicit, reviewable tools for creating, validating, ingesting, and exporting repository OKF knowledge catalogs.",
+      "version": "0.1.0",
+      "source": "plugins/okf",
+      "author": { "name": "vnr" },
+      "category": "developer-tools",
+      "tags": ["okf", "knowledge-catalog", "repository-documentation", "agent-skills"],
+      "skills": "skills/", "commands": "commands/"
+    },
+    {
+      "name": "web-tools",
+      "displayName": "Web Tools Agent Toolkit",
+      "description": "Reusable agent skills for bounded web content capture, browser automation, and other web tooling.",
+      "version": "0.1.0",
+      "source": "plugins/web-tools",
+      "author": { "name": "vnr" },
+      "category": "developer-tools",
+      "tags": ["web-tools", "web-crawler", "web-content", "agent-browser", "browser-automation", "markdown", "agent-skills"],
+      "skills": "skills/"
+    }
+  ]
+}

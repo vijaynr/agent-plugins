@@ -1,0 +1,21 @@
+{
+  "name": "product-owner",
+  "displayName": "Product Owner Agent Toolkit",
+  "description": "Product ownership agent and skills for PRD drafting, backlog shaping, abstraction-ladder guidance (zoom-in/zoom-out), and one-question-at-a-time requirement stress testing.",
+  "version": "0.1.0",
+  "author": {
+    "name": "vnr"
+  },
+  "keywords": [
+    "product-owner",
+    "prd",
+    "backlog",
+    "zoom-in",
+    "zoom-out",
+    "user-stories",
+    "agent-skills"
+  ],
+  "category": "developer-tools",
+  "agents": "agents/",
+  "skills": "skills/"
+}

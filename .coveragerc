@@ -1,0 +1,17 @@
+[run]
+branch = true
+
+[paths]
+blackduck =
+    plugins/blackduck/skills/blackduck/scripts
+    */blackduck/scripts
+gitlab =
+    plugins/gitlab/skills/gitlab/scripts
+    */gitlab/scripts
+octane =
+    plugins/octane/skills/alm-octane/scripts
+    */alm-octane/scripts
+
+[report]
+omit =
+    */tests/*

@@ -1,0 +1,251 @@
+{
+  "skill_name": "gitlab",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "List all projects I have access to on GitLab and tell me how many there are.",
+      "expected_output": "A JSON list of projects with their IDs and names, plus a count of total projects.",
+      "assertions": [
+        "The agent invokes scripts/gitlab_cli.py with the list_projects tool",
+        "The output is valid JSON containing an array of project objects",
+        "The agent reports the total number of projects found"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Get the details of GitLab project 42 and summarize what it is.",
+      "expected_output": "Project metadata including name, description, URL, default branch, and visibility.",
+      "assertions": [
+        "The agent invokes scripts/gitlab_cli.py with get_project and --param project_id=42",
+        "The output includes the project name and description",
+        "The agent provides a human-readable summary of the project"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create a new issue in project 42 titled 'Fix login timeout bug' with description 'Users report timeouts after 30 seconds on the login page.' and label it as 'bug'.",
+      "expected_output": "A new issue created in project 42 with the specified title, description, and label.",
+      "assertions": [
+        "The agent invokes create_issue with project_id=42",
+        "The --param title contains 'Fix login timeout bug'",
+        "The --param description is included",
+        "The --param labels includes 'bug'",
+        "The agent confirms the issue was created by showing the new issue IID"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Show me all open merge requests in project 42 and for each one tell me the title and source branch.",
+      "expected_output": "A list of open merge requests showing title and source_branch for each.",
+      "assertions": [
+        "The agent invokes list_merge_requests with project_id=42",
+        "The agent passes state=opened as a parameter",
+        "The output includes title and source_branch for each MR",
+        "The agent formats the results in a readable way"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Get the diff for merge request !15 in project 42 and summarize what files were changed.",
+      "expected_output": "A summary of changed files from the merge request diff.",
+      "assertions": [
+        "The agent invokes get_merge_request_diffs with project_id=42 and merge_request_iid=15",
+        "The agent lists the filenames that were changed",
+        "The agent provides a brief summary of what kind of changes were made"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Read the README.md file from the main branch of project 42.",
+      "expected_output": "The decoded content of README.md from the main branch.",
+      "assertions": [
+        "The agent invokes get_file_contents with project_id=42, file_path=README.md, and ref=main",
+        "The agent decodes and displays the file content (base64 decoded or raw)",
+        "The output shows the actual file text, not raw JSON metadata"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Show me the latest 5 pipelines for project 42 and their statuses.",
+      "expected_output": "A list of up to 5 recent pipelines with their IDs, statuses, and refs.",
+      "assertions": [
+        "The agent invokes list_pipelines with project_id=42",
+        "The agent limits or presents only the latest 5 results",
+        "Each pipeline shows at minimum its ID and status",
+        "The agent formats the output as a table or readable list"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Pipeline 789 in project 42 failed. Get the job log for job 1234 so I can see what went wrong.",
+      "expected_output": "The raw job trace/log output from the failed job.",
+      "assertions": [
+        "The agent invokes get_pipeline_job_output with project_id=42 and job_id=1234",
+        "The agent displays the job log text",
+        "The agent does not truncate the log without mentioning it"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Create a new branch called 'feature/user-auth' from 'main' in project 42.",
+      "expected_output": "Confirmation that the branch 'feature/user-auth' was created from 'main'.",
+      "assertions": [
+        "The agent invokes create_branch with project_id=42, branch=feature/user-auth, and ref=main",
+        "The agent confirms the branch was created successfully",
+        "The output includes the branch name"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Close issue #7 in project 42 with a comment saying 'Fixed in MR !15'.",
+      "expected_output": "Issue #7 is closed and a comment is added referencing MR !15.",
+      "assertions": [
+        "The agent invokes update_issue with project_id=42, issue_iid=7, and state_event=close",
+        "The agent also creates a note or comment with body containing 'Fixed in MR !15'",
+        "The agent confirms both actions completed"
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "Compare the 'main' and 'develop' branches in project 42 and tell me what's different.",
+      "expected_output": "A summary of the diff between main and develop branches.",
+      "assertions": [
+        "The agent invokes get_branch_diffs with project_id=42, from=main, and to=develop",
+        "The agent summarizes the files changed between the two branches",
+        "The output mentions the number of changed files or provides a list"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Create a merge request in project 42 from 'feature/user-auth' to 'main' titled 'Add user authentication module'.",
+      "expected_output": "A new merge request created with the specified source, target, and title.",
+      "assertions": [
+        "The agent invokes create_merge_request with project_id=42",
+        "The parameters include source_branch=feature/user-auth and target_branch=main",
+        "The --param title contains 'Add user authentication module'",
+        "The agent reports the new MR IID"
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "List all labels in project 42.",
+      "expected_output": "A list of project labels with their names and colors.",
+      "assertions": [
+        "The agent invokes list_labels with project_id=42",
+        "The output includes label names",
+        "The agent presents the results clearly"
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "Search for GitLab projects matching 'microservice' and show me the top results.",
+      "expected_output": "A list of projects matching the search term 'microservice'.",
+      "assertions": [
+        "The agent invokes search_repositories with --param search=microservice",
+        "The output includes project names and IDs",
+        "The agent presents multiple results if available"
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "Show me all the wiki pages for project 42.",
+      "expected_output": "A list of wiki pages with their titles/slugs.",
+      "assertions": [
+        "The agent invokes list_wiki_pages with project_id=42",
+        "The output includes wiki page slugs or titles",
+        "The results are presented in a readable format"
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "Get my assigned open issues and tell me what I need to work on.",
+      "expected_output": "A list of open issues assigned to the current user with titles and priorities.",
+      "assertions": [
+        "The agent invokes my_issues (or list_issues with scope=assigned_to_me)",
+        "The output includes issue titles and IIDs",
+        "The agent provides an actionable summary of what needs attention"
+      ]
+    },
+    {
+      "id": 17,
+      "prompt": "Retry the failed pipeline 789 in project 42.",
+      "expected_output": "Confirmation that pipeline 789 was retried.",
+      "assertions": [
+        "The agent invokes retry_pipeline with project_id=42 and pipeline_id=789",
+        "The agent confirms the retry was initiated",
+        "The output includes the pipeline status after retry"
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "Add a comment to merge request !15 in project 42 saying 'LGTM, approved after review.'",
+      "expected_output": "A new thread or note added to MR !15 with the specified comment.",
+      "assertions": [
+        "The agent invokes create_merge_request_thread with project_id=42 and merge_request_iid=15",
+        "The body parameter contains 'LGTM, approved after review'",
+        "The agent confirms the comment was posted"
+      ]
+    },
+    {
+      "id": 19,
+      "prompt": "Show me the file tree of the src/ directory in project 42 on the main branch.",
+      "expected_output": "A tree listing of files and directories under src/ on main.",
+      "assertions": [
+        "The agent invokes get_repository_tree with project_id=42, path=src, and ref=main",
+        "The output lists files and subdirectories",
+        "The agent distinguishes between files (blob) and directories (tree)"
+      ]
+    },
+    {
+      "id": 20,
+      "prompt": "Create a milestone called 'v2.0 Release' in project 42 with due date 2026-06-01.",
+      "expected_output": "A new milestone created with the specified title and due date.",
+      "assertions": [
+        "The agent invokes create_milestone with project_id=42",
+        "The parameters include title='v2.0 Release' and due_date=2026-06-01",
+        "The agent confirms the milestone was created and shows its ID"
+      ]
+    },
+    {
+      "id": 21,
+      "prompt": "I'm in read-only mode. Try to create an issue in project 42 and explain what happens.",
+      "expected_output": "The agent recognizes read-only mode and either avoids the write call or explains the error.",
+      "assertions": [
+        "The agent checks or mentions GITLAB_READ_ONLY_MODE",
+        "The agent either does not invoke create_issue or reports the blocked-by-read-only error",
+        "The agent explains that write operations are disabled"
+      ]
+    },
+    {
+      "id": 22,
+      "prompt": "Get the discussions on merge request !15 in project 42 and summarize the review feedback.",
+      "expected_output": "A summary of discussion threads on the MR with key feedback points.",
+      "assertions": [
+        "The agent invokes mr_discussions with project_id=42 and merge_request_iid=15",
+        "The agent parses the discussion JSON and extracts key points",
+        "The summary identifies distinct discussion threads and their resolutions"
+      ]
+    },
+    {
+      "id": 23,
+      "prompt": "List members of project 42 and their access levels.",
+      "expected_output": "A list of project members with usernames and access levels.",
+      "assertions": [
+        "The agent invokes list_project_members with project_id=42",
+        "The output includes usernames and access_level for each member",
+        "The agent translates access level numbers to human-readable roles (Guest, Reporter, Developer, Maintainer, Owner)"
+      ]
+    },
+    {
+      "id": 24,
+      "prompt": "Get the last 3 commits on project 42 and show me what each one changed.",
+      "expected_output": "A list of recent commits with their messages, authors, and diffs.",
+      "assertions": [
+        "The agent invokes list_commits with project_id=42",
+        "The agent limits to or presents 3 commits",
+        "For each commit, the agent either shows the diff or invokes get_commit_diff",
+        "Each commit entry includes the commit message and author"
+      ]
+    }
+  ]
+}

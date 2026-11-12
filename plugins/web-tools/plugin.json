@@ -1,0 +1,20 @@
+{
+  "name": "web-tools",
+  "displayName": "Web Tools Agent Toolkit",
+  "description": "Reusable agent skills for bounded web content capture, browser automation, and other web tooling.",
+  "version": "0.1.0",
+  "author": {
+    "name": "vnr"
+  },
+  "keywords": [
+    "web-tools",
+    "web-crawler",
+    "web-content",
+    "agent-browser",
+    "browser-automation",
+    "markdown",
+    "agent-skills"
+  ],
+  "category": "developer-tools",
+  "skills": "skills/"
+}

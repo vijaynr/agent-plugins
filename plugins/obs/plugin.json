@@ -1,0 +1,13 @@
+{
+  "name": "obs",
+  "displayName": "OBS RPM Packaging Toolkit",
+  "description": "RPM packaging, builds, diagnostics, and approved submissions for workspace-configured internal Open Build Service instances.",
+  "version": "0.1.0",
+  "author": {
+    "name": "vnr"
+  },
+  "keywords": ["obs", "osc", "rpm", "packaging", "agent-skills"],
+  "category": "developer-tools",
+  "skills": "skills/",
+  "commands": "commands/"
+}

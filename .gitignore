@@ -1,0 +1,30 @@
+# Environment variables
+.env
+
+# Python
+*.pyc
+__pycache__/
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# AIDD
+/.features/
+SPEC.md
+/tasks
+
+# Tests
+reports/
+.coverage
+/.venv
+/tasks
+/SPEC.md

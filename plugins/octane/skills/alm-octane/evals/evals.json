@@ -1,0 +1,234 @@
+{
+  "skill_name": "alm-octane",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Get me the details of defect 2045 from Octane.",
+      "expected_output": "The agent runs `uv run scripts/octane_client.py get-defect --entity-id 2045` and returns the JSON payload containing the defect's name, description, severity, phase, and owner.",
+      "assertions": [
+        "The agent invokes scripts/octane_client.py with the get-defect subcommand",
+        "The --entity-id flag is set to 2045",
+        "The agent parses and presents the JSON output to the user",
+        "No hardcoded workspace ID of 1002 is used"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Search Octane for any work items related to 'login timeout'.",
+      "expected_output": "The agent runs `uv run scripts/octane_client.py search-all --query \"login timeout\"` and summarises the matching work items.",
+      "assertions": [
+        "The agent invokes scripts/octane_client.py with the search-all subcommand",
+        "The --query flag contains the search term 'login timeout'",
+        "The agent does not use get-defect or get-story as a substitute for search"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create a new critical defect in Octane: the checkout page returns a 500 error when the cart has more than 50 items.",
+      "expected_output": "The agent runs create-defect with --name, --description, and --severity set to a high/critical severity list_node ID. Optionally sets --priority.",
+      "assertions": [
+        "The agent invokes scripts/octane_client.py with the create-defect subcommand",
+        "The --name flag is provided with a descriptive title",
+        "The --description flag contains details about the 500 error and the 50-item cart condition",
+        "The --severity flag uses an Octane list_node ID format (e.g. list_node.severity.critical or list_node.severity.high)",
+        "The agent does not use create-story by mistake"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Mark defect 2045 as fixed.",
+      "expected_output": "The agent runs `uv run scripts/octane_client.py update-defect --defect-id 2045 --phase \"phase.defect.fixed\"`.",
+      "assertions": [
+        "The agent invokes scripts/octane_client.py with the update-defect subcommand",
+        "The --defect-id flag is set to 2045",
+        "The --phase flag is set to phase.defect.fixed",
+        "The agent does not use update-story-status for a defect"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Add a comment to defect 2045 saying 'Root cause identified: null pointer in PaymentService.process()'.",
+      "expected_output": "The agent runs create-comment with --entity-id 2045, --entity-type defect, and --text containing the root cause message.",
+      "assertions": [
+        "The agent invokes scripts/octane_client.py with the create-comment subcommand",
+        "The --entity-id is 2045",
+        "The --entity-type is exactly 'defect'",
+        "The --text flag is used (not --comment)",
+        "The comment text includes the root cause message about null pointer in PaymentService"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "List work items in Octane.",
+      "expected_output": "The agent runs `uv run scripts/octane_client.py list-work-items` and lists the returned items.",
+      "assertions": [
+        "The agent invokes scripts/octane_client.py with the list-work-items subcommand",
+        "If the result is empty, the agent retries with --retry-on-empty",
+        "The agent presents the work items from the JSON output"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Create a user story: 'As a customer, I want to filter orders by date range so I can find past purchases quickly.' and then move it to In Progress.",
+      "expected_output": "The agent first runs create-story, parses the returned ID, then runs update-story-status with that ID and phase.story.inprogress.",
+      "assertions": [
+        "The agent invokes create-story with --name and --description",
+        "The agent parses the new story ID from the create-story JSON response",
+        "The agent then invokes update-story-status with the new story ID",
+        "The --phase flag in update-story-status uses an Octane phase ID (e.g. phase.story.inprogress)",
+        "The agent does not hardcode an ID for the update step"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Show me the test steps for manual test 5001 and then check if its parent suite 7001 has any recent runs.",
+      "expected_output": "The agent first runs get-manual-test --test-id 5001, then runs get-suite-runs --suite-id 7001.",
+      "assertions": [
+        "The agent invokes get-manual-test with --test-id 5001",
+        "The agent invokes get-suite-runs with --suite-id 7001",
+        "Both commands are run in sequence (manual test first)",
+        "The agent presents script/steps data from the manual test response"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "Triage defect 3099 — fetch its details, analyze the error logs in the description, and post your analysis as a comment.",
+      "expected_output": "The agent fetches the defect, reads the description/comments, formulates 3 potential root causes, and posts a comment back to the defect.",
+      "assertions": [
+        "The agent invokes get-defect with --entity-id 3099",
+        "The agent reads and analyzes the description and/or comments fields from the JSON",
+        "The agent invokes create-comment with --entity-id 3099 and --entity-type defect",
+        "The comment text contains at least one specific root cause suggestion",
+        "The triage workflow follows the sequence: fetch → analyze → comment"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "Get the pass/fail results for suite run 8001.",
+      "expected_output": "The agent runs `uv run scripts/octane_client.py get-run-history --suite-run-id 8001` and presents the pass/fail status of each run.",
+      "assertions": [
+        "The agent invokes get-run-history with --suite-run-id 8001",
+        "The agent does not confuse get-run-history with get-suite-runs",
+        "The agent presents the status/native_status fields from the results"
+      ]
+    },
+    {
+      "id": 11,
+      "prompt": "hey can you check octane for anything related to the payment gateway and also find defect 1234",
+      "expected_output": "The agent runs search-all with 'payment gateway' as the query AND get-defect with --entity-id 1234. Two separate commands.",
+      "assertions": [
+        "The agent invokes search-all for the 'payment gateway' search",
+        "The agent invokes get-defect with --entity-id 1234",
+        "Both results are presented to the user",
+        "The agent does not try to combine both into a single command"
+      ]
+    },
+    {
+      "id": 12,
+      "prompt": "Update the severity of defect 5555 to critical and also change its phase to opened.",
+      "expected_output": "The agent runs update-defect with both --severity and --phase flags in a single invocation.",
+      "assertions": [
+        "The agent invokes update-defect with --defect-id 5555",
+        "Both --severity and --phase flags are provided in a single command",
+        "The --severity uses an Octane list_node ID format",
+        "The --phase uses an Octane phase ID format (e.g. phase.defect.opened)"
+      ]
+    },
+    {
+      "id": 13,
+      "prompt": "Can you check this defect for me? https://octane.example.com/ui/entity-navigation?p=1001/1002&entityType=work_item&id=42",
+      "expected_output": "The agent uses octane_url.py with the full URL to fetch the work item details first, rather than manually extracting the ID or assuming a defect subtype.",
+      "assertions": [
+        "The agent invokes scripts/octane_url.py (not octane_client.py directly)",
+        "The full URL is passed as a positional argument",
+        "The agent does not manually extract the entity ID from the URL",
+        "The agent presents the work item details from the JSON response, including subtype when available"
+      ]
+    },
+    {
+      "id": 14,
+      "prompt": "Mark this defect as fixed: https://octane.example.com/ui/entity-navigation?p=1001/1002&entityType=work_item&id=43",
+      "expected_output": "The agent uses octane_url.py with --action update-defect --phase phase.defect.fixed and the URL.",
+      "assertions": [
+        "The agent invokes scripts/octane_url.py with the URL",
+        "The --action flag is set to update-defect",
+        "The --phase flag is set to phase.defect.fixed",
+        "The agent does not manually parse the URL to call octane_client.py"
+      ]
+    },
+    {
+      "id": 15,
+      "prompt": "Fetch details for all three of these Octane items:\nhttps://octane.example.com/ui/entity-navigation?p=1001/1002&entityType=work_item&id=42\nhttps://octane.example.com/ui/entity-navigation?p=1001/1002&entityType=work_item&id=43\nhttps://octane.example.com/ui/entity-navigation?p=1001/1002&entityType=work_item&id=44",
+      "expected_output": "The agent passes all three URLs to a single octane_url.py invocation for batch processing.",
+      "assertions": [
+        "The agent invokes scripts/octane_url.py with all three URLs in one command",
+        "All three entity IDs (42, 43, 44) are covered",
+        "The agent presents results for each URL",
+        "The agent does not run three separate commands"
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "Add a comment 'Regression confirmed in v3.2' to this defect https://octane.example.com/ui/entity-navigation?p=1001/1002&entityType=work_item&id=44",
+      "expected_output": "The agent uses octane_url.py with --action create-comment --entity-type defect --text 'Regression confirmed in v3.2' and the URL.",
+      "assertions": [
+        "The agent invokes scripts/octane_url.py with the URL",
+        "The --action flag is create-comment",
+        "The --entity-type flag is defect",
+        "The --text flag contains the comment about regression in v3.2"
+      ]
+    },
+    {
+      "id": 17,
+      "prompt": "Parse this Octane URL only and do not fetch it yet: https://octane.example.com/ui/entity-navigation?p=1001/1002&entityType=work_item&id=42",
+      "expected_output": "The agent runs octane_url.py with --parse-only and returns the parsed base URL, shared space ID, workspace ID, entity type, and entity ID.",
+      "assertions": [
+        "The agent invokes scripts/octane_url.py with --parse-only",
+        "The full URL is passed as a positional argument",
+        "The agent presents base_url, shared_space_id, workspace_id, entity_type, and entity_id from the parsed output"
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "Check this Octane item and tell me whether it is a defect or a story before we plan any code changes: https://octane.example.com/ui/entity-navigation?p=1001/1002&entityType=work_item&id=42",
+      "expected_output": "The agent fetches the generic work item first, reads its subtype from the JSON response, and reports the subtype instead of assuming it is a defect.",
+      "assertions": [
+        "The agent invokes scripts/octane_url.py or scripts/octane_client.py get-work-item for the generic work item",
+        "The agent does not assume a defect subtype from entityType=work_item alone",
+        "The agent reports the subtype from the JSON response before making follow-up recommendations"
+      ]
+    },
+    {
+      "id": 19,
+      "prompt": "This Octane URL seems broken, can you parse it and tell me what is wrong? https://octane.example.com/ui/entity-navigation?entityType=work_item&id=42",
+      "expected_output": "The agent runs octane_url.py, surfaces the parse failure for the missing p=<shared_space>/<workspace> parameter, and does not invent fallback IDs or workspace defaults.",
+      "assertions": [
+        "The agent invokes scripts/octane_url.py with the supplied URL",
+        "The agent reports an explicit parse error for the missing p query parameter",
+        "The agent does not fabricate shared space or workspace IDs"
+      ]
+    },
+    {
+      "id": 20,
+      "prompt": "Close defect 2045 as a duplicate of defect 1022 in Octane.",
+      "expected_output": "The agent does not invent an unsupported duplicate-linking workflow. It states that no relevant Octane tool exists for the request and lists the supported commands.",
+      "assertions": [
+        "The agent does not claim to complete the duplicate-linking request",
+        "The agent states that no relevant Octane tool found for this request",
+        "The agent lists or references the supported Octane commands instead of guessing"
+      ]
+    },
+    {
+      "id": 21,
+      "prompt": "Update security fields on this feature: https://octane.example.com/ui/entity-navigation?p=1001/1002&entityType=feature&id=45 Security Assessment: Review complete. Security Impact Level: high.",
+      "expected_output": "The agent uses octane_url.py with --action update-feature-security, passes the feature URL, and supplies --security-assessment plus --security-impact-level so the CLI reads the feature before updating and verifies the result.",
+      "assertions": [
+        "The agent invokes scripts/octane_url.py with the URL",
+        "The --action flag is update-feature-security",
+        "The --security-assessment flag contains the assessment text",
+        "The --security-impact-level flag is provided (preferably as a list_node ID when known)",
+        "The agent does not manually parse the URL to call octane_client.py"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "okf",
+  "displayName": "Open Knowledge Format Repository Toolkit",
+  "description": "Explicit, reviewable tools for creating, validating, ingesting, and exporting repository OKF knowledge catalogs.",
+  "version": "0.1.0",
+  "author": {
+    "name": "vnr"
+  },
+  "keywords": [
+    "okf",
+    "knowledge-catalog",
+    "repository-documentation",
+    "agent-skills"
+  ],
+  "category": "developer-tools",
+  "skills": "skills/",
+  "commands": "commands/"
+}

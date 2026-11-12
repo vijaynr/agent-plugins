@@ -1,0 +1,20 @@
+{
+  "name": "gitlab",
+  "displayName": "GitLab Agent Toolkit",
+  "description": "GitLab issue and merge-request workflow agents: triage, analyse, plan, and approved GitLab updates via a hub-and-spoke multi-agent architecture.",
+  "version": "0.1.0",
+  "author": {
+    "name": "vnr"
+  },
+  "keywords": [
+    "gitlab",
+    "merge-request",
+    "issue-triage",
+    "pipeline",
+    "agent-skills"
+  ],
+  "category": "developer-tools",
+  "agents": "agents/",
+  "skills": "skills/",
+  "commands": "commands/"
+}

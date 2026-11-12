@@ -1,0 +1,20 @@
+{
+  "name": "context-engineering",
+  "displayName": "Context Engineering Agent Toolkit",
+  "description": "Agent skills for local context-engineering prerequisites and project tooling setup.",
+  "version": "0.1.0",
+  "author": {
+    "name": "vnr"
+  },
+  "keywords": [
+    "context-engineering",
+    "tooling",
+    "rtk",
+    "ripgrep",
+    "caveman",
+    "github-copilot",
+    "agent-skills"
+  ],
+  "category": "developer-tools",
+  "skills": "skills/"
+}

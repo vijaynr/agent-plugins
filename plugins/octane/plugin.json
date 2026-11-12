@@ -1,0 +1,20 @@
+{
+  "name": "octane",
+  "displayName": "Octane Agent Toolkit",
+  "description": "ALM Octane agents, skills, and commands for backlog triage, analysis, planning, implementation, and work item operations.",
+  "version": "0.1.0",
+  "author": {
+    "name": "vnr"
+  },
+  "keywords": [
+    "alm-octane",
+    "octane",
+    "backlog",
+    "work-items",
+    "agent-skills"
+  ],
+  "category": "developer-tools",
+  "agents": "agents/",
+  "skills": "skills/",
+  "commands": "commands/"
+}

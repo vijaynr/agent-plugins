@@ -1,0 +1,3 @@
+# Hash-pinned test runner and YAML parser used by GitLab validation.
+pytest
+PyYAML
